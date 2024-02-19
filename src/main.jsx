@@ -12,6 +12,9 @@ import TherapistSignUpScreen from './screens/SignUpScreen/TherapistSignUpScreen.
 import LawyerSignUpScreen from './screens/SignUpScreen/LawyerSignUpScreen.jsx'
 import NGOSignUpScreen from './screens/SignUpScreen/NGOSignUpScreen.jsx'
 import HomeScreen from './screens/HomeScreen/HomeScreen.jsx'
+import TherapyScreen from './screens/TherapyScreen/TherapyScreen.jsx'
+import WomenOpportunitiesScreen from './screens/OpportunityScreen/OpportunityScreen.jsx'
+import LegalSupportScreen from './screens/LegalSupportScreen/LegalSupportScreen.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
@@ -24,6 +27,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <Route path='/register/lawyer' element={<LawyerSignUpScreen/>}/>
       <Route path='/register/NGO' element={<NGOSignUpScreen/>}/>
       <Route path='/' element={<HomeScreen/>}/>
+      <Route path='/therapy' element={<TherapyScreen/>}/>
+      <Route path='/opportunity' element={<WomenOpportunitiesScreen/>}/>
+      <Route path='/legal' element={<LegalSupportScreen/>}/>
     </Routes>
   </BrowserRouter>
   </Provider>,

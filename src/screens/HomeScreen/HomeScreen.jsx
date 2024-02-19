@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Navbar from "./Components/Navbar";
 import Card from "./Components/Card";
 import { law_data, opportunity_data, therapy_data } from "./data";
+import { useDispatch } from "react-redux";
+import { setTab } from "../../redux/features/currentTab";
+import Footer from "./Components/Footer";
 
 const HomeScreen = () => {
+  const dispatch = useDispatch();
+  useEffect(()=>{
+    dispatch(setTab("home"))
+  },[])
   return (
     <div className="flex flex-col min-h-screen w-full bg-background">
       <Navbar />
@@ -26,6 +33,7 @@ const HomeScreen = () => {
         <Card imgUrl={opportunity_data.imageUrl} description={opportunity_data.description} title={opportunity_data.title} redirectUrl={opportunity_data.redirectUrl}/>
         <Card imgUrl={law_data.imageUrl} description={law_data.description} title={law_data.title} redirectUrl={law_data.redirectUrl}/>
       </div>
+      <Footer/>
     </div>
   );
 };

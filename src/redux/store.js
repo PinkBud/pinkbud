@@ -5,6 +5,6 @@ import tabReducer from "./features/currentTab";
 export const store = configureStore({
   reducer: {
     user: userReducer,
-    tab: tabReducer
+    tab: tabReducer,
   },
 })
