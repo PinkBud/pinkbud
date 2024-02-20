@@ -1,7 +1,9 @@
 import { useNavigate } from "react-router-dom"
 
+
 export default function UserSignUpScreen() {
   const navigate = useNavigate();
+
     return (
       <div className="min-h-screen bg-gray-100 flex flex-col justify-center">
         <div className="max-w-md w-full mx-auto">

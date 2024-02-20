@@ -16,7 +16,11 @@ function TherapySessionCard({ title, description, onClick }) {
           <CardDescription>{description}</CardDescription>
         </div>
         <a className="ml-auto" href="#">
-          <Button size="sm">Join Now</Button>
+          <Button size="sm" onClick={
+            ()=>{
+              window.location.href="http://localhost:3000/react-rtc-demo"
+            }
+          }>Join Now</Button>
         </a>
       </CardHeader>
     </Card>

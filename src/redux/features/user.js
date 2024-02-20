@@ -9,7 +9,12 @@ export const userSlice = createSlice({
     password: "",
   },
   reducers: {
-    
+    setUserEmail:(state, action)=>{
+      state.email=action.payload     
+    },
+    setUserPassword : (state,action) => {
+      state.password = action.payload
+    }
   },
 })
 
