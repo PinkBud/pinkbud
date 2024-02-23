@@ -62,6 +62,24 @@ export default function LawyerSignUpScreen() {
     e.preventDefault();
     console.log("Profile URL : ",profileImageUrl);
     console.log("Certificate URL : ",certificateUrl);
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/ngos/`,{
+        email : email,
+        password: password,
+        name: name,
+        description: description,
+        img: profileImageUrl,
+        certificate: certificateUrl
+      });
+      if (response.data.success){
+        navigate("/");
+        localStorage.setItem("isNgo",false);
+        localStorage.setItem("isLoggedIn",true);
+        localStorage.setItem("user",JSON.stringify(response.data.details))
+      }
+    } catch (error) {
+      alert("Error creating user... ");
+    }
     
   }
     return (

@@ -4,7 +4,10 @@ import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
+  const isNgo = localStorage.getItem("isNgo");
 
+  console.log(isNgo)
   const toggleMenu = () => {
     console.log("Toggling Menu");
     setIsOpen(!isOpen);
@@ -47,6 +50,32 @@ const Navbar = () => {
               Opportunities
             </p>
             <p
+              onClick={() => window.location.href= "http://127.0.0.1:5000/"}
+              className={`cursor-pointer transition-all duration-200 hover:text-primary ${
+                currentTab != "oppo" ? "text-secondary" : "text-primary"
+              }`}
+            >
+              Chat
+            </p>
+            {
+              isNgo == "true" ? <p
+              onClick={() => navigate("/event/add")}
+              className={`cursor-pointer transition-all duration-200 hover:text-primary ${
+                currentTab != "eve" ? "text-secondary" : "text-primary"
+              }`}
+            >
+              Add Event
+            </p> : <></>
+            }
+            <p
+              onClick={() => navigate("/community")}
+              className={`cursor-pointer transition-all duration-200 hover:text-primary ${
+                currentTab != "community" ? "text-secondary" : "text-primary"
+              }`}
+            >
+              Community
+            </p>
+            <p
               onClick={() => navigate("/legal")}
               className={`cursor-pointer transition-all duration-200 hover:text-primary ${
                 currentTab != "legal" ? "text-secondary" : "text-primary"
@@ -55,8 +84,8 @@ const Navbar = () => {
               Legal Support
             </p>
           </div>
-
-          <button>
+          {
+            isLoggedIn ? <button onClick={()=>navigate("/login")}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -69,7 +98,9 @@ const Navbar = () => {
                 clipRule="evenodd"
               />
             </svg>
-          </button>
+          </button>: <button onClick={()=>navigate("/login")} className="bg-primary hover:bg-secondary duration-300 transition-all ease-in-out text-white font-semibold px-2 py-1 rounded">Login</button>
+          }
+          
           <div className="md:hidden text-primary   ">
             <button onClick={toggleMenu}>
               {!isOpen ? (
@@ -118,11 +149,26 @@ const Navbar = () => {
             <li onClick={() => navigate("/")} className="px-4 py-2 ">
               <p className="p-2 rounded-md bg-bg2 text-primary">Home</p>
             </li>
+            {
+              isNgo == "true" ? <li onClick={() => navigate("/event/add")} className="px-4 py-2 ">
+              <p className="p-2 rounded-md bg-bg2 text-primary">Add Event</p>
+            </li> : <></>
+            }
             <li onClick={() => navigate("/therapy")} className="px-4 py-2 ">
               <p className="p-2 rounded-md bg-bg2 text-primary">Therapy</p>
             </li>
             <li onClick={() => navigate("/opportunity")} className="px-4 py-2 ">
               <p className="p-2 rounded-md bg-bg2 text-primary">Opportunity</p>
+            </li>
+            <li onClick={() => window.location.href= "http://127.0.0.1:5000/"} className="px-4 py-2 ">
+              <p className="p-2 rounded-md bg-bg2 text-primary">
+                Chat
+              </p>
+            </li>
+            <li onClick={() => navigate("/community")} className="px-4 py-2 ">
+              <p className="p-2 rounded-md bg-bg2 text-primary">
+                Community
+              </p>
             </li>
             <li onClick={() => navigate("/legal")} className="px-4 py-2 ">
               <p className="p-2 rounded-md bg-bg2 text-primary">

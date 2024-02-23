@@ -1,8 +1,31 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom"
-
+import axios from "axios";
 
 export default function UserSignUpScreen() {
   const navigate = useNavigate();
+
+  const [name,setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const submitData = async () => {
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/users/`,{
+        email : email,
+        password: password,
+        name: name
+      });
+      if (response.data.success){
+        navigate("/");
+        localStorage.setItem("isNgo",false);
+        localStorage.setItem("isLoggedIn",true);
+        localStorage.setItem("user",JSON.stringify(response.data.details))
+      }
+    } catch (error) {
+      alert("Error creating user... ");
+    }
+  }
 
     return (
       <div className="min-h-screen bg-gray-100 flex flex-col justify-center">
@@ -16,6 +39,8 @@ export default function UserSignUpScreen() {
                   Full Name
                 </label>
                 <input
+                value={name}
+                  onChange={(e) => setName(e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
                   id="full-name"
                   placeholder="John Doe"
@@ -28,6 +53,8 @@ export default function UserSignUpScreen() {
                   Email
                 </label>
                 <input
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
                   id="email"
                   placeholder="johndoe@example.com"
@@ -40,6 +67,8 @@ export default function UserSignUpScreen() {
                   Password
                 </label>
                 <input
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
                   id="password"
                   required
@@ -48,6 +77,7 @@ export default function UserSignUpScreen() {
                 />
               </div>
               <button
+                onClick={()=> submitData()}
                 className="w-full bg-secondary text-white rounded-md py-2 px-4 hover:bg-primary focus:outline-none focus:ring focus:ring-secondary  "
                 type="submit"
               >

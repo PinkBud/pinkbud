@@ -6,6 +6,12 @@ import { useNavigate } from "react-router-dom";
 export default function NGOSignUpScreen() {
 
     const navigate = useNavigate();
+    const [name,setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [description, setDescription] = useState("");
+
+  
       //Secret keys for Cloudinary
   const preset_key = "bisineimages" ;
   const cloudname = "ddkpclbs2";
@@ -60,8 +66,30 @@ export default function NGOSignUpScreen() {
 
   const submitData = async (e) => {
     e.preventDefault();
+    console.log(name);
+    console.log(email)
+    console.log(description)
+    console.log(password);
     console.log("Profile URL : ",profileImageUrl);
     console.log("Certificate URL : ",certificateUrl);
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/ngos/`,{
+        email : email,
+        password: password,
+        name: name,
+        description: description,
+        img: profileImageUrl,
+        certificate: certificateUrl
+      });
+      if (response.data.success){
+        navigate("/");
+        localStorage.setItem("isNgo",true);
+        localStorage.setItem("isLoggedIn",true);
+        localStorage.setItem("user",JSON.stringify(response.data.details))
+      }
+    } catch (error) {
+      alert("Error creating user... ");
+    }
     
   }
     return (
@@ -76,6 +104,8 @@ export default function NGOSignUpScreen() {
                   Full Name
                 </label>
                 <input
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
                   id="full-name"
                   placeholder="John Doe"
@@ -88,6 +118,8 @@ export default function NGOSignUpScreen() {
                   Email
                 </label>
                 <input
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
                   id="email"
                   placeholder="johndoe@example.com"
@@ -100,11 +132,26 @@ export default function NGOSignUpScreen() {
                   Password
                 </label>
                 <input
+                  value={password}
+                  onChange={(e)=> setPassword(e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
                   id="password"
                   required
                   type="password"
                 />
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-gray-700" htmlFor="password">
+                  Description
+                </label>
+                <textarea
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
+                  id="text"
+                  required
+                  type="text"
+                ></textarea>
               </div>
               <div className="space-y-2">
                 <label className="text-sm font-medium text-gray-700" htmlFor="profile-image">

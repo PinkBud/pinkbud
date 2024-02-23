@@ -10,6 +10,7 @@ const HomeScreen = () => {
   const dispatch = useDispatch();
   useEffect(()=>{
     dispatch(setTab("home"))
+    console.log(import.meta.env.VITE_API_URL)
   },[])
   return (
     <div className="flex flex-col min-h-screen w-full bg-background">

@@ -58,8 +58,8 @@ export default function LegalSupportScreen() {
           <h2 className="text-2xl font-semibold mb-4">Find Lawyers</h2>
           {/* Lawyer Cards will go here */}
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            <LawyerCard name="Alice Johnson" practiceAreas={['Criminal Law', 'Family Law']} rating={5} />
-            <LawyerCard name="Emily Davis" practiceAreas={['Business Law', 'Employment Law']} rating={4} />
+            <LawyerCard url="https://www.linkedin.com/in/harisha-preetha-h777/" name="Alice Johnson" practiceAreas={['Criminal Law', 'Family Law']} rating={5} />
+            <LawyerCard url="https://www.linkedin.com/in/tamilarasan-j-a41821212/" name="Emily Davis" practiceAreas={['Business Law', 'Employment Law']} rating={4} />
             {/* Add more lawyer cards here */}
           </div>
         </div>
@@ -77,7 +77,7 @@ function CheckboxWithLabel({ id, label }) {
   );
 }
 
-function LawyerCard({ name, practiceAreas, rating }) {
+function LawyerCard({ name, practiceAreas, rating, url }) {
   return (
     <div className="bg-white p-4 shadow-md rounded-md">
       <h3 className="text-lg font-semibold mb-2">{name}</h3>
@@ -88,7 +88,7 @@ function LawyerCard({ name, practiceAreas, rating }) {
         ))}
       </div>
       <div className="flex justify-between">
-        <Button size="sm" className="w-full">Contact</Button>
+        <Button onClick={() => window.location.href = url} size="sm" className="w-full">Contact</Button>
         
       </div>
     </div>

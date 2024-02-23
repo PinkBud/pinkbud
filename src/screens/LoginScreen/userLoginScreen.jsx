@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import axios from "axios";
 
 export default function UserLoginScreen() {
 
@@ -8,6 +8,30 @@ export default function UserLoginScreen() {
     const [password, setPassword] = useState("");
 
     const navigate = useNavigate();
+
+    const submitData = async () => {
+      console.log(email,password)
+      try {
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/login/`,{
+          email : email,
+          password: password
+        });
+        if (response.data.success){
+          if (response.data.type=="Ngo"){
+            localStorage.setItem("isNgo",true);
+          } else {
+            localStorage.setItem("isNgo",false);
+          }
+          navigate("/");
+          localStorage.setItem("isLoggedIn",true);
+          localStorage.setItem("user",JSON.stringify(response.data.details))
+        }
+      } catch (error) {
+        console.log(error)
+        alert("Incorrect password and username");
+      }
+       
+    }
 
     return (
       <div className="min-h-screen bg-background flex flex-col justify-center">
@@ -48,7 +72,7 @@ export default function UserLoginScreen() {
                 </a>
               </div>
               <div>
-                <button className="w-full font-semibold py-2 px-4 bg-secondary text-white rounded-md transition-all duration-300 eas hover:bg-primary">Login</button>
+                <button className="w-full font-semibold py-2 px-4 bg-secondary text-white rounded-md transition-all duration-300 eas hover:bg-primary" onClick={()=>submitData()}>Login</button>
               </div>
               <div className="text-center flex gap-1 justify-center">
                 <p className="text-sm">Don't have an account?</p>
